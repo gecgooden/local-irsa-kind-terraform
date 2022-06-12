@@ -67,3 +67,14 @@ There is an example Job definition provided ([example-job.yaml](./example-job.ya
 ```
 $ ./run-example.sh
 ```
+
+### Teardowm
+
+Once you're done testing, you should remember to delete the resources.
+
+Do this by running:
+
+```
+$ kind delete cluster
+$ terraform -chdir=terraform destroy
+```
