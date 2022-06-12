@@ -1,0 +1,28 @@
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: example-sa
+  annotations:
+    eks.amazonaws.com/role-arn: <<role-arn>>
+---
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: example-job
+spec:
+  template:
+    spec:
+      serviceAccountName: example-sa
+      containers:
+      - name: main
+        image: amazon/aws-cli
+        command:
+        - "sh"
+        - "-c"
+        - "aws sts get-caller-identity"
+        env:
+        - name: AWS_DEFAULT_REGION
+          value: "us-west-2"
+        - name: ENABLE_IRP
+          value: "true"
+      restartPolicy: Never
